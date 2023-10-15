@@ -281,9 +281,6 @@
 #if defined(EXTERNALGRAVITY_STATICHQ) && !defined(EXTERNALGRAVITY)
 #error "EXTERNALGRAVITY_STATICHQ only works when EXTERNALGRAVITY is activated"
 #endif
-#if defined(EXTERNALGRAVITY_MW) && !defined(EXTERNALGRAVITY)
-#error "EXTERNALGRAVITY_MW only works when EXTERNALGRAVITY is activated"
-#endif
 
 #if defined(LIGHTCONE_MULTIPLE_ORIGINS) && defined(LIGHTCONE_PARTICLES_GROUPS)
 #error "Presently, the option LIGHTCONE_MULTIPLE_ORIGINS cannot be used yet together with LIGHTCONE_PARTICLES_GROUPS"

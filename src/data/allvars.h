@@ -355,20 +355,6 @@ struct global_data_all_processes : public parameters
   double A_StaticHQHalo;
   double Mass_StaticHQHalo;
 #endif
-#ifdef EXTERNALGRAVITY_MW
-  double MWThinMass;
-  double MWThin_A;
-  double MWThin_B;
-  double MWThickMass;
-  double MWThick_A;
-  double MWThick_B;
-  double MWBulgeMass;
-  double MWBulge_A;
-  double MWHaloMass;
-  double MWHalo_R;
-  double MWHalo_C;
-#endif
-
 
   void set_cosmo_factors_for_current_time(void);
   void register_parameters(void);
