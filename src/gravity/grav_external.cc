@@ -62,14 +62,47 @@ void sim::gravity_external(void)
         double x = pos[0];
         double y = pos[1];
         double R = sqrt(x*x + y*y);
-        double z = sqrt(pos.r2());
+        double z = pos[2];
+        vector<double> z_hat (0,0,1);
+        vector<double> R_hat (x/R, y/R, 0);
+        vector<double> r_hat = 1/r * pos;
+        double thin_S = sqrt(All.MWThin_B*All.MWThin_B * z*z);
+        double thin_D = sqrt(R*R + pow(All.MWThin_A + thin_S, 2));
+        double thick_S = sqrt(All.MWThick_B*All.MWThick_B * z*z);
+        double thick_D = sqrt(R*R + pow(All.MWThick_A + thick_S, 2));
 
-        double m = All.MWBulgeMass * pow(r / (r + All.MWBulge_A), 2);
 
-        if(r > 0)
-          Sp.P[target].GravAccel += (-All.G * m / (r * r * r)) * pos;
+        if(r > 0) 
+        {
+          double a_bulge = - All.G * All.MWBulgeMass  
+              / pow((r + All.MWBulge_A), 2);
+
+          double a_halo = -1/r * All.G * All.MWHaloMass 
+              / (log(2) - 0.5) 
+              * ( 1/r * log(r/All.MWHalo_R + 1) - 1/(r+R) );
+
+          double a_thin_r = - All.G * All.MWThinMass * R 
+              / (thin_D*thin_D*thin_D);
+
+          double a_thin_z = - All.G * All.MWThinMass * z 
+              / (thin_D*thin_D*thin_D) * (All.MWThin_A/thin_S + 1);
+
+
+          double a_thick_r = - All.G * All.MWThickMass * R 
+              / (thick_D*thick_D*thick_D);
+          double a_thick_z = -All.G * All.MWThickMass * z 
+              / (thick_D*thick_D*thick_D) * (All.MWThick_A/thick_S + 1);
+
+          Sp.P[target].GravAccel += a_bulge*r_hat + a_halo *r_hat 
+              + a_thin_r * R_hat + a_thin_z * z_hat
+              + a_thick_r * R_hat + a_thick_z * z_hat;
+        }
 
 #if defined(EVALPOTENTIAL) || defined(OUTPUT_POTENTIAL)
+        double BulgePotential = - All.G * All.MWBulgeMass / (r + All.MWBulge_A);
+        double HaloPotential = - All.G * All.MWHaloMass / (r * (log(2) - 0.5)) * log(1 + r/All.MWHalo_R);
+        double ThinPotential = - All.G * All.MWThinMass / thin_D;
+        double ThickPotential = - All.G * All.MWThickMass / thick_D;
         Sp.P[target].ExtPotential += (-All.G * All.MWBulgeMass / (r + All.MWBulge_A));
 #endif
       }
