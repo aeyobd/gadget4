@@ -370,6 +370,13 @@ halo, with parameters specified in the parameterfile.
 -------
 
 
+**EXTERNALGRAVITY_MW**
+
+Activates a MW potential as used in PN20
+
+-------
+
+
 TreePM Options                                             {#treepm}
 ==============
 

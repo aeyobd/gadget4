@@ -205,6 +205,19 @@ void global_data_all_processes::register_parameters(void)
   add_param("A_StaticHQHalo", &A_StaticHQHalo, PARAM_DOUBLE, PARAM_FIXED);
   add_param("Mass_StaticHQHalo", &Mass_StaticHQHalo, PARAM_DOUBLE, PARAM_FIXED);
 #endif
+#ifdef EXTERNALGRAVITY_MW
+  add_param("MWThinMass", &MWThinMass, PARAM_DOUBLE, PARAM_FIXED);
+  add_param("MWThin_A", &MWThin_A, PARAM_DOUBLE, PARAM_FIXED);
+  add_param("MWThin_B", &MWThin_B, PARAM_DOUBLE, PARAM_FIXED);
+  add_param("MWMassThick", &MWThickMass, PARAM_DOUBLE, PARAM_FIXED);
+  add_param("MWThick_A", &MWThick_A, PARAM_DOUBLE, PARAM_FIXED);
+  add_param("MWThick_B", &MWThick_B, PARAM_DOUBLE, PARAM_FIXED);
+  add_param("MWBulgeMass", &MWBulgeMass, PARAM_DOUBLE, PARAM_FIXED);
+  add_param("MWBulge_A", &MWBulge_A, PARAM_DOUBLE, PARAM_FIXED);
+  add_param("MWHaloMass", &MWHaloMass, PARAM_DOUBLE, PARAM_FIXED);
+  add_param("MWHalo_R", &MWHalo_R, PARAM_DOUBLE, PARAM_FIXED);
+  add_param("MWHalo_C", &MWHalo_C, PARAM_DOUBLE, PARAM_FIXED);
+#endif
 }
 
 /*! \brief This function reads a table with a list of desired output times.

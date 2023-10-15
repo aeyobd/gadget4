@@ -53,6 +53,29 @@ void sim::gravity_external(void)
       Sp.P[target].ExtPotential = 0;
 #endif
 
+#ifdef EXTERNALGRAVITY_MW
+      {
+        vector<double> pos;
+        Sp.nearest_image_intpos_to_pos(Sp.P[target].IntPos, intpos_center, pos.da);
+
+        double r = sqrt(pos.r2());
+        double x = pos[0];
+        double y = pos[1];
+        double R = sqrt(x*x + y*y);
+        double z = sqrt(pos.r2());
+
+        double m = All.MWBulgeMass * pow(r / (r + All.MWBulge_A), 2);
+
+        if(r > 0)
+          Sp.P[target].GravAccel += (-All.G * m / (r * r * r)) * pos;
+
+#if defined(EVALPOTENTIAL) || defined(OUTPUT_POTENTIAL)
+        Sp.P[target].ExtPotential += (-All.G * All.MWBulgeMass / (r + All.MWBulge_A));
+#endif
+      }
+
+#endif
+
 #ifdef EXTERNALGRAVITY_STATICHQ
       {
         vector<double> pos;
