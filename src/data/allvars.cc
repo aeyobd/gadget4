@@ -209,7 +209,7 @@ void global_data_all_processes::register_parameters(void)
   add_param("MWThinMass", &MWThinMass, PARAM_DOUBLE, PARAM_FIXED);
   add_param("MWThin_A", &MWThin_A, PARAM_DOUBLE, PARAM_FIXED);
   add_param("MWThin_B", &MWThin_B, PARAM_DOUBLE, PARAM_FIXED);
-  add_param("MWMassThick", &MWThickMass, PARAM_DOUBLE, PARAM_FIXED);
+  add_param("MWThickMass", &MWThickMass, PARAM_DOUBLE, PARAM_FIXED);
   add_param("MWThick_A", &MWThick_A, PARAM_DOUBLE, PARAM_FIXED);
   add_param("MWThick_B", &MWThick_B, PARAM_DOUBLE, PARAM_FIXED);
   add_param("MWBulgeMass", &MWBulgeMass, PARAM_DOUBLE, PARAM_FIXED);

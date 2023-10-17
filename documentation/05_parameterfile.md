@@ -1249,3 +1249,70 @@ This parameter is only active when `EXTERNALGRAVITY_STATICHQ` is
 enabled, and then gives the total mass (in internal units) of the
 halos that is added as a static potential to the force computation.
 
+------ 
+
+**MWBulgeMass**         0.0
+
+Mass of Milky Way Bulge, using a Hernquist Potential
+
+-------
+
+**MWBulge_A**           0.0
+
+MW Profile constant 
+
+------
+
+**MWHaloMass**          0.0
+
+The scale mass for the NFW MW halo
+
+------
+
+**MWHalo_R**            0.0
+
+The scale radius for the NFW MW halo
+
+------
+
+**MWHalo_C**            0.0
+
+The scale radius for the NFW MW halo
+
+------
+
+**MWThickMass**         0.0
+
+The thin and thick disk potentials are defined by the potential
+
+$$ \Phi(R, z) = \frac{-GM}{\left(R^2 + \left[a + \sqrt{z^2 + b^2}\right]^{2}\right)^{1/2}} $$
+
+------
+
+**MWThick_A**           0.0
+
+MW Profile constant 
+
+------
+
+**MWThick_B**           0.0
+
+MW Profile constant 
+
+------
+
+**MWThinMass**          0.0
+
+MW Profile constant 
+
+------
+
+**MWThin_A**            0.0
+
+MW Profile constant 
+
+------
+
+**MWThin_B**            0.0
+
+MW Profile constant 
