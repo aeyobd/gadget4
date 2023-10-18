@@ -11,7 +11,6 @@
 #include "grav_milkyway.h"
 
 
-#include "grav_profiles.h"
 
 
 #include <math.h>
@@ -77,6 +76,47 @@ double MilkyWayPotential(vector<double> pos)
       double ThinPotential = - All.G * All.MWThinMass * DiskPotential(R, z, All.MWThin_A, All.MWThin_B);
       double ThickPotential = - All.G * All.MWThickMass * DiskPotential(R, z, All.MWThick_A, All.MWThick_B);
     return BulgePotential + HaloPotential + ThinPotential + ThickPotential;
+}
+
+
+
+
+double HernquistAcceleration(double r, double a) {
+    return 1 / r / square(r + a);
+}
+
+double HernquistPotential(double r, double a) {
+    return 1.0 / (r + a);
+}
+
+double NFW_g(double c) {
+    return 1 / (log(1+c) - c/(1+c));
+}
+// these all assume GM = 1 for simplicity
+//
+double NFWAcceleration(double r, double R, double c) {
+    return  1/square(r) * NFW_g(c) * ( 1/r * log(r/R + 1) - 1/(r + R) );
+}
+
+
+double NFWPotential(double r, double R, double c) {
+    return  1/r * NFW_g(c) * log( 1 + r/R);
+}
+
+double DiskScale_r(double R, double z, double a, double b) {
+    return norm(R, a + norm(z, b));
+}
+
+double DiskPotential(double R, double z, double a, double b) {
+    return 1 / DiskScale_r(R, z, a, b);
+}
+
+double DiskAcceleration_R(double R, double z, double a, double b) {
+    return 1 / cube(DiskScale_r(R, z, a, b));
+}
+
+double DiskAcceleration_Z(double R, double z, double a, double b) {
+    return  ( 1 + a / norm(z, b) ) / cube(DiskScale_r(R, z, a, b));
 }
 
 

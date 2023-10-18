@@ -1,3 +1,7 @@
+#ifndef GRAV_PROFILES_H
+#define GRAV_PROFILES_H
+
+#include "gadgetconfig.h"
 #include "math.h"
 // note: all of these are normalized to GM = 1
 // accelerations are normalized and positive so need multiplied by 
@@ -57,3 +61,6 @@ double DiskAcceleration_R(double R, double z, double a, double b) {
 double DiskAcceleration_Z(double R, double z, double a, double b) {
     return  ( 1 + a / norm(z, b) ) / cube(DiskScale_r(R, z, a, b));
 }
+
+
+#endif
