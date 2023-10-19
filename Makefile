@@ -474,13 +474,13 @@ RESULT := $(shell echo 'static const char *compiler_flags="$(CPP) $(CFLAGS)";' >
 #build rules#
 #############
 
-all: check_docs check build test
+all: check_docs check build 
 
 build: $(EXEC)
 
 # daniel's test cases
 test: 
-	$(CPP) $(CFLAGS) -I$(BUILD_DIR)/ -I$(SRC_DIR)/gravity/ $(SRC_DIR)/gravity/mw_test.cc -o $(BUILD_DIR)/mw_test.o
+	$(CPP) $(CFLAGS) -I$(BUILD_DIR)/ -I$(SRC_DIR)/gravity/ -I$(SRC_DIR)/data/ -I$(SRC_DIR)/vectorclass/ $(SRC_DIR)/gravity/mw_test.cc -o $(BUILD_DIR)/mw_test.o -lgsl -lgslcblas -lm
 
 $(EXEC): $(OBJS)
 	$(LINKER) $(OPTIMIZE) $(OBJS) $(LIBS) -o $(EXEC)
