@@ -480,7 +480,7 @@ build: $(EXEC)
 
 # daniel's test cases
 test: 
-	$(CPP) $(CFLAGS) -I$(BUILD_DIR)/ -I$(SRC_DIR)/gravity/ -I$(SRC_DIR)/data/ -I$(SRC_DIR)/vectorclass/ $(SRC_DIR)/gravity/mw_test.cc -o $(BUILD_DIR)/mw_test.o -lgsl -lgslcblas -lm
+	$(CPP) $(CFLAGS) -I$(BUILD_DIR)/ -I$(SRC_DIR)/gravity/ -I$(SRC_DIR)/data/ -I$(SRC_DIR)/vectorclass/ $(SRC_DIR)/gravity/mw_test.cc -o $(BUILD_DIR)/mw_test.o -lgsl -lgslcblas -lm -lboost_unit_test_framework
 
 $(EXEC): $(OBJS)
 	$(LINKER) $(OPTIMIZE) $(OBJS) $(LIBS) -o $(EXEC)

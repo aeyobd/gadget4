@@ -60,7 +60,7 @@ inline double z_cyl(vector<double> pos) {
 
 double HernquistScalarAcceleration(double r, double a) {
     if (r > 0)
-        return 1 / r / square(r + a);
+        return 1. / r / square(r + a);
     else
         return 0;
 }
@@ -74,13 +74,13 @@ double HernquistPotential(vector<double> pos, double a) {
 }
 
 double NFW_g(double c) {
-    return 1 / (log(1+c) - c/(1+c));
+    return 1. / (log(1.+c) - c/(1.+c));
 }
 // these all assume GM = 1 for simplicity
 //
 double NFWScalarAcceleration(double r, double R, double c) {
     if (r > 0)
-        return  1/square(r) * NFW_g(c) * ( 1/r * log(r/R + 1) - 1/(r + R) );
+        return  1. / square(r) * NFW_g(c) * ( 1/r * log(r/R + 1) - 1/(r + R) );
     else
         return 0;
 }
@@ -108,17 +108,23 @@ double DiskPotential(vector<double> pos, double a, double b) {
 }
 
 double DiskScalarAcceleration_R(double R, double z, double a, double b) {
-    return 1 / cube(DiskScale_r(R, z, a, b));
+    if (DiskScale_r(R, z, a, b) > 0)
+        return 1 / cube(DiskScale_r(R, z, a, b));
+    else
+        return 0;
 }
 
 double DiskScalarAcceleration_z(double R, double z, double a, double b) {
-    return  ( 1 + a / norm(z, b) ) / cube(DiskScale_r(R, z, a, b));
+    if (norm(z, b) > 0)
+        return  ( 1 + a / norm(z, b) ) / cube(DiskScale_r(R, z, a, b));
+    else
+        return 0;
 }
 
 
 
 vector<double> NFWAcceleration(vector<double> pos, double R, double c) {
-    double r = sqrt(pos.r2());
+    double r = r_sphere(pos);
     double a = -NFWScalarAcceleration(r, R, c);
     return  a * pos;
 }
