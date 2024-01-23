@@ -43,7 +43,7 @@ inline double norm(double x, double y, double z) {
 }
 
 inline double r_sphere(vector<double> pos) {
-    return sqrt(pos.r2());
+    return norm(pos[0], pos[1], pos[2]);
 }
 
 inline double r_cyl(vector<double> pos) {
@@ -73,22 +73,36 @@ double HernquistPotential(vector<double> pos, double a) {
     return HernquistPotential(r_sphere(pos), a);
 }
 
-double NFW_g(double c) {
-    return 1. / (log(1.+c) - c/(1.+c));
+double NFW_A(double c) {
+    return log(1. + c) - c/(1. + c);
 }
+
 // these all assume GM = 1 for simplicity
+// Scalar acceleerations are also divided by 1/r for later
 //
 double NFWScalarAcceleration(double r, double R, double c) {
-    if (r > 0)
-        return  1. / square(r) * NFW_g(c) * ( 1/r * log(r/R + 1) - 1/(r + R) );
-    else
+    if (r > 0) {
+        double GM_s = 1. / NFW_A(c);
+        double x = r/R;
+        return  GM_s/square(R) * 1/r * NFW_A(x) / square(x);
+    }
+    else {
         return 0;
+    }
 }
 
 
 
 double NFWPotential(double r, double R, double c) {
-    return  -1/r * NFW_g(c) * log( 1 + r/R);
+    double GM_s = 1 / NFW_A(c);
+
+    if (r > 0) {
+        double x = r/R;
+        return  - GM_s/R * 1/x * log(x + 1);
+    }
+    else {
+        return -GM_s/R;
+    }
 }
 
 double NFWPotential(vector<double> pos, double R, double c) {

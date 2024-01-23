@@ -61,7 +61,7 @@ void sim::gravity_external(void)
       Sp.P[target].GravAccel += MilkyWayAcceleration(pos);
 
 #if defined(EVALPOTENTIAL) || defined(OUTPUT_POTENTIAL)
-      Sp.P[target].Potential += MilkyWayPotential(pos);
+      Sp.P[target].ExtPotential += MilkyWayPotential(pos);
 #endif // EVALPOTENTIAL
 #endif // EXTERNALGRAVITY_MW
     }

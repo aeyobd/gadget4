@@ -161,6 +161,13 @@ void snap_io::init_basic(simparticles *Sp_ptr)
   init_field("POT ", "Potential", MEM_MY_FLOAT, FILE_MY_IO_FLOAT, READ_IF_PRESENT, 1, A_P, &Sp->P[0].Potential, 0,
              ALL_TYPES, /* potential */
              1, -1., 0., 0., 0., 2., All.UnitVelocity_in_cm_per_s * All.UnitVelocity_in_cm_per_s);
+
+#ifdef EXTERNALGRAVITY
+  init_field("EPOT ", "ExtPotential", MEM_MY_FLOAT, FILE_MY_IO_FLOAT, READ_IF_PRESENT, 1, A_P, &Sp->P[0].ExtPotential, 0,
+             ALL_TYPES, /* external potential */
+             1, -1., 0., 0., 0., 2., All.UnitVelocity_in_cm_per_s * All.UnitVelocity_in_cm_per_s);
+
+#endif
 #endif
 
 #ifdef OUTPUT_CHANGEOFENTROPY

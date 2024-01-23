@@ -206,15 +206,15 @@ BOOST_DATA_TEST_CASE(test_simple_nfw, rand_a^rand_c^bdata::xrange(Npoints), R, c
     double r = R;
     vector<double> pos = r * rand_unit();
 
-    double g = 1. / (log(1. + c) - c/(1.+c));
-    BOOST_TEST(g == NFW_g(c), tt::tolerance(1e-8));
+    double A = log(1. + c) - c/(1.+c);
+    BOOST_TEST(A == NFW_A(c), tt::tolerance(1e-8));
 
     BOOST_TEST(r_sphere(pos) == R, tt::tolerance(1e-6));
-    double phi_exp = -1. / R * log(2) * g;
+    double phi_exp = -1. / R * log(2) * 1./A;
     double phi = NFWPotential(pos, R, c);
     BOOST_TEST(phi==phi_exp, tt::tolerance(1e-6));
     
-    double acc_exp = 1./square(R) *  g * (log(2.) - 1./2.);
+    double acc_exp = (1./square(R)) *  1./A * (log(2.) - 1./2.);
     double acc = r_sphere(NFWAcceleration(pos, R, c));
     BOOST_TEST(acc==acc_exp, tt::tolerance(1e-6));
 }
