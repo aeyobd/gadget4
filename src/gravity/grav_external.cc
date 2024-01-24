@@ -36,29 +36,22 @@
 
 void sim::gravity_external(void)
 {
-#ifdef PERIODIC
-  // pick middle of (stretched) box, but could also choose other point
-  vector<double> pos_center{0.5 * All.BoxSize / LONG_X, 0.5 * All.BoxSize / LONG_Y, 0.5 * All.BoxSize / LONG_Z};
-#else
-  // here pick origin
-  vector<double> pos_center{0, 0, 0};
-#endif // PERIODIC
-
-  MyIntPosType intpos_center[3];
-  Sp.pos_to_intpos(pos_center.da, intpos_center);
-
+    // # TODO: If periodic, raise error
   for(int i = 0; i < Sp.TimeBinsGravity.NActiveParticles; i++)
     {
       int target = Sp.TimeBinsGravity.ActiveParticleList[i];
+
 
 #if defined(EVALPOTENTIAL) || defined(OUTPUT_POTENTIAL)
       Sp.P[target].ExtPotential = 0;
 #endif
 
+
 #ifdef EXTERNALGRAVITY_MW
       vector<double> pos;
-      Sp.nearest_image_intpos_to_pos(Sp.P[target].IntPos, intpos_center, pos.da);
+      Sp.intpos_to_pos(Sp.P[target].IntPos, pos.da);
       Sp.P[target].GravAccel += MilkyWayAcceleration(pos);
+
 
 #if defined(EVALPOTENTIAL) || defined(OUTPUT_POTENTIAL)
       Sp.P[target].ExtPotential += MilkyWayPotential(pos);
